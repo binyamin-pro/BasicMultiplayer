@@ -57,6 +57,10 @@ properties/5/replication_mode = 2
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("bar_nickname", "bar_health", "hud") groups=["player"]]
 collision_layer = 2
 script = ExtResource("1_rmstp")
+gold = null
+silver = null
+health = null
+health_max = null
 bar_nickname = NodePath("InfoBar/Health/SubViewport/Nickname_Label")
 bar_health = NodePath("InfoBar/Health/SubViewport/HealthBar")
 hud = NodePath("HUD")

@@ -1,7 +1,7 @@
 extends CharacterBody3D
 
 @export_category("Info")
-@export var nickname: String
+var nickname := ""
 
 @export_category("Stats")
 @export var gold := 0 :set = set1
@@ -59,14 +59,24 @@ var gravity = 9.8
 
 func _enter_tree() -> void:
 	set_multiplayer_authority(str(name).to_int())
-	if not is_multiplayer_authority():
+	
+	if is_multiplayer_authority():
 		nickname = Global_Self.nickname
+		rpc("sync_nickname", nickname)
+
+@rpc("any_peer", "call_local", "reliable")
+func sync_nickname(value: String):
+	nickname = value
+	if bar_nickname:
+		bar_nickname.text = nickname
 
 func _ready():
-	bar_nickname.text = nickname
-	if not is_multiplayer_authority(): hud.queue_free(); return
 	
-	nickname = Global_Self.nickname
+	if not is_multiplayer_authority():
+		hud.queue_free();
+		
+		return
+	
 	print(nickname, bar_nickname.text)
 	bar_health.get_node("Label").text = str(health) + "/" + str(health_max)
 	$InfoBar/Health.visible = false

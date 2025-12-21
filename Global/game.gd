@@ -108,6 +108,12 @@ func add_player(peer_id):
 	var player = player_scene.instantiate()
 	player.name = str(peer_id)
 	players_spawn.add_child(player)
+	
+	# Late join fix
+	if multiplayer.is_server():
+		for p in players_spawn.get_children():
+			if p != player:
+				p.rpc_id(peer_id, "sync_nickname", p.nickname)
 
 func remove_player(peer_id):
 	
