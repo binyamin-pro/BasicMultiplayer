@@ -1,0 +1,110 @@
+[gd_scene load_steps=10 format=3 uid="uid://b40rtw7uua71g"]
+
+[ext_resource type="Script" uid="uid://ca1rvfa10e2nm" path="res://Global/game.gd" id="1_4ii8u"]
+[ext_resource type="Texture2D" uid="uid://d0uxap1afo1hh" path="res://addons/kenney_prototype_textures/dark/texture_01.png" id="2_ofmkd"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i84kb"]
+bg_color = Color(0.223529, 0.223529, 0.223529, 0.498039)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_4ii8u"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_ofmkd"]
+sky_material = SubResource("ProceduralSkyMaterial_4ii8u")
+
+[sub_resource type="Environment" id="Environment_s57u0"]
+background_mode = 2
+sky = SubResource("Sky_ofmkd")
+tonemap_mode = 2
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_axid1"]
+size = Vector3(20, 1, 20)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y1aw6"]
+albedo_texture = ExtResource("2_ofmkd")
+uv1_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_n7uh3"]
+size = Vector3(20, 1, 20)
+
+[node name="Game" type="Node"]
+script = ExtResource("1_4ii8u")
+names = Array[String](["Emmy", "Johny"])
+
+[node name="Menu" type="CanvasLayer" parent="."]
+
+[node name="PanelContainer" type="PanelContainer" parent="Menu"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -449.0
+offset_right = 767.0
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_i84kb")
+
+[node name="MarginContainer" type="MarginContainer" parent="Menu/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Host" type="Button" parent="Menu/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Host"
+
+[node name="Join" type="Button" parent="Menu/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Join"
+
+[node name="Address" type="LineEdit" parent="Menu/PanelContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+text = "localhost"
+placeholder_text = "localhost"
+context_menu_enabled = false
+emoji_menu_enabled = false
+virtual_keyboard_type = 7
+
+[node name="Nickname_" type="LineEdit" parent="Menu/PanelContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+placeholder_text = "Nickname"
+max_length = 10
+context_menu_enabled = false
+emoji_menu_enabled = false
+
+[node name="Players" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("uid://505rh6ecjx8a")
+spawn_path = NodePath("../World/Players")
+
+[node name="World" type="Node3D" parent="."]
+
+[node name="Players" type="Node3D" parent="World"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="World"]
+environment = SubResource("Environment_s57u0")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="World"]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Level" type="Node3D" parent="World"]
+
+[node name="Floor" type="StaticBody3D" parent="World/Level"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Level/Floor"]
+shape = SubResource("BoxShape3D_axid1")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/Level/Floor"]
+material_override = SubResource("StandardMaterial3D_y1aw6")
+mesh = SubResource("BoxMesh_n7uh3")
+
+[connection signal="pressed" from="Menu/PanelContainer/MarginContainer/VBoxContainer/Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="Menu/PanelContainer/MarginContainer/VBoxContainer/Join" to="." method="_on_join_pressed"]
