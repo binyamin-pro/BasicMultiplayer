@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://cmocr5tyn00aw"
-path="res://.godot/imported/GoogleSansCode-MediumItalic.ttf-c7788e1e34a6c4aaa34190a39b80b7c2.fontdata"
+path="res://.godot/imported/GoogleSansCode-MediumItalic.ttf-6bf50c46cea81eb809a452a9d6bfa8f8.fontdata"
 
 [deps]
 
-source_file="res://assets/fonts/Google_Sans_Code/static/GoogleSansCode-MediumItalic.ttf"
-dest_files=["res://.godot/imported/GoogleSansCode-MediumItalic.ttf-c7788e1e34a6c4aaa34190a39b80b7c2.fontdata"]
+source_file="res://assets/Fonts/Google_Sans_Code/static/GoogleSansCode-MediumItalic.ttf"
+dest_files=["res://.godot/imported/GoogleSansCode-MediumItalic.ttf-6bf50c46cea81eb809a452a9d6bfa8f8.fontdata"]
 
 [params]
 
@@ -21,6 +21,7 @@ msdf_pixel_range=8
 msdf_size=48
 allow_system_fallback=true
 force_autohinter=false
+modulate_color_glyphs=false
 hinting=1
 subpixel_positioning=4
 keep_rounding_remainders=true

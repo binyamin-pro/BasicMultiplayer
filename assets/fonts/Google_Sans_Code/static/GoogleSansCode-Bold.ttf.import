@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://dgosa42croje0"
-path="res://.godot/imported/GoogleSansCode-Bold.ttf-5118493f84304fb9cda82c02bd27c4bd.fontdata"
+path="res://.godot/imported/GoogleSansCode-Bold.ttf-96f93b92d6d76f51fb7462af4fecbcd3.fontdata"
 
 [deps]
 
-source_file="res://assets/fonts/Google_Sans_Code/static/GoogleSansCode-Bold.ttf"
-dest_files=["res://.godot/imported/GoogleSansCode-Bold.ttf-5118493f84304fb9cda82c02bd27c4bd.fontdata"]
+source_file="res://assets/Fonts/Google_Sans_Code/static/GoogleSansCode-Bold.ttf"
+dest_files=["res://.godot/imported/GoogleSansCode-Bold.ttf-96f93b92d6d76f51fb7462af4fecbcd3.fontdata"]
 
 [params]
 
@@ -21,6 +21,7 @@ msdf_pixel_range=8
 msdf_size=48
 allow_system_fallback=true
 force_autohinter=false
+modulate_color_glyphs=false
 hinting=1
 subpixel_positioning=4
 keep_rounding_remainders=true

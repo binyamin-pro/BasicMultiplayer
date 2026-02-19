@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://dix7xr02euxf6"
-path="res://.godot/imported/GoogleSansCode-ExtraBold.ttf-ef3dda3c635b45bc2f08894a021379cd.fontdata"
+path="res://.godot/imported/GoogleSansCode-ExtraBold.ttf-1a1e93d3162cc84dd2dd3f0cbfd74c92.fontdata"
 
 [deps]
 
-source_file="res://assets/fonts/Google_Sans_Code/static/GoogleSansCode-ExtraBold.ttf"
-dest_files=["res://.godot/imported/GoogleSansCode-ExtraBold.ttf-ef3dda3c635b45bc2f08894a021379cd.fontdata"]
+source_file="res://assets/Fonts/Google_Sans_Code/static/GoogleSansCode-ExtraBold.ttf"
+dest_files=["res://.godot/imported/GoogleSansCode-ExtraBold.ttf-1a1e93d3162cc84dd2dd3f0cbfd74c92.fontdata"]
 
 [params]
 
@@ -21,6 +21,7 @@ msdf_pixel_range=8
 msdf_size=48
 allow_system_fallback=true
 force_autohinter=false
+modulate_color_glyphs=false
 hinting=1
 subpixel_positioning=4
 keep_rounding_remainders=true

@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://i0bjtj835qde"
-path="res://.godot/imported/GoogleSansCode-Medium.ttf-d9c470e3a41adedcf6618cc95ff30f7a.fontdata"
+path="res://.godot/imported/GoogleSansCode-Medium.ttf-45fc47dcd2361e7db156cbb3bdf47010.fontdata"
 
 [deps]
 
-source_file="res://assets/fonts/Google_Sans_Code/static/GoogleSansCode-Medium.ttf"
-dest_files=["res://.godot/imported/GoogleSansCode-Medium.ttf-d9c470e3a41adedcf6618cc95ff30f7a.fontdata"]
+source_file="res://assets/Fonts/Google_Sans_Code/static/GoogleSansCode-Medium.ttf"
+dest_files=["res://.godot/imported/GoogleSansCode-Medium.ttf-45fc47dcd2361e7db156cbb3bdf47010.fontdata"]
 
 [params]
 
@@ -21,6 +21,7 @@ msdf_pixel_range=8
 msdf_size=48
 allow_system_fallback=true
 force_autohinter=false
+modulate_color_glyphs=false
 hinting=1
 subpixel_positioning=4
 keep_rounding_remainders=true

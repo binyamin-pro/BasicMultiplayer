@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://pard4jy1u05v"
-path="res://.godot/imported/GoogleSansCode-ExtraBoldItalic.ttf-3c030f8e77750d3f2da6feba2fee2356.fontdata"
+path="res://.godot/imported/GoogleSansCode-ExtraBoldItalic.ttf-441e121ae9b01755d544e03853cb89e3.fontdata"
 
 [deps]
 
-source_file="res://assets/fonts/Google_Sans_Code/static/GoogleSansCode-ExtraBoldItalic.ttf"
-dest_files=["res://.godot/imported/GoogleSansCode-ExtraBoldItalic.ttf-3c030f8e77750d3f2da6feba2fee2356.fontdata"]
+source_file="res://assets/Fonts/Google_Sans_Code/static/GoogleSansCode-ExtraBoldItalic.ttf"
+dest_files=["res://.godot/imported/GoogleSansCode-ExtraBoldItalic.ttf-441e121ae9b01755d544e03853cb89e3.fontdata"]
 
 [params]
 
@@ -21,6 +21,7 @@ msdf_pixel_range=8
 msdf_size=48
 allow_system_fallback=true
 force_autohinter=false
+modulate_color_glyphs=false
 hinting=1
 subpixel_positioning=4
 keep_rounding_remainders=true

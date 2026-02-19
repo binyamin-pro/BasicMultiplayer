@@ -1,165 +1,118 @@
-[gd_scene load_steps=13 format=3 uid="uid://505rh6ecjx8a"]
+[gd_scene format=3 uid="uid://dn7nix0yh1yc7"]
 
-[ext_resource type="Script" uid="uid://d3u4rjw4f6hm3" path="res://scripts/player.gd" id="1_rmstp"]
-[ext_resource type="FontFile" uid="uid://ckpjk3sxg65kw" path="res://assets/fonts/Google_Sans_Code/static/GoogleSansCode-BoldItalic.ttf" id="2_vx763"]
-[ext_resource type="PackedScene" uid="uid://c4w74xy5nmf88" path="res://Objects/Items/sword.tscn" id="2_yj4gv"]
-[ext_resource type="FontFile" uid="uid://dgosa42croje0" path="res://assets/fonts/Google_Sans_Code/static/GoogleSansCode-Bold.ttf" id="3_5t6ff"]
-[ext_resource type="PackedScene" uid="uid://d31q3gxefl6py" path="res://chars/hud.tscn" id="5_xs2b6"]
+[ext_resource type="Script" uid="uid://ctjqlfnl4ne1i" path="res://scripts/player.gd" id="1_go6xe"]
+[ext_resource type="FontFile" uid="uid://dgosa42croje0" path="res://assets/Fonts/Google_Sans_Code/static/GoogleSansCode-Bold.ttf" id="2_yj4gv"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_xboe1"]
-viewport_path = NodePath("InfoBar/Health/SubViewport")
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y0fyv"]
-bg_color = Color(0.482903, 0.31286, 0.330574, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(1, 1, 1, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ukqa4"]
-bg_color = Color(0.353726, 0.692426, 0.31624, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.301961, 0.592157, 0.270588, 0)
-
-[sub_resource type="LabelSettings" id="LabelSettings_qrljh"]
-font = ExtResource("3_5t6ff")
-outline_size = 2
-outline_color = Color(0, 0, 0, 1)
-
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_go6xe"]
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_i4ban"]
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
-properties/0/replication_mode = 2
+properties/0/replication_mode = 1
 properties/1/path = NodePath(".:rotation")
 properties/1/spawn = true
 properties/1/replication_mode = 1
-properties/2/path = NodePath("Head:rotation")
+properties/2/path = NodePath(".:nickname")
 properties/2/spawn = true
-properties/2/replication_mode = 1
-properties/3/path = NodePath("Head/Camera3D:rotation")
+properties/2/replication_mode = 2
+properties/3/path = NodePath("Head:rotation")
 properties/3/spawn = true
 properties/3/replication_mode = 1
-properties/4/path = NodePath(".:health")
-properties/4/spawn = true
-properties/4/replication_mode = 2
-properties/5/path = NodePath(".:nickname")
-properties/5/spawn = true
-properties/5/replication_mode = 2
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_vx1ls"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_1f8af"]
+viewport_path = NodePath("Info/Sprite3D/SubViewport")
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_ivbhp"]
+[sub_resource type="LabelSettings" id="LabelSettings_xs2b6"]
+font = ExtResource("2_yj4gv")
+font_size = 14
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("bar_nickname", "bar_health", "hud") groups=["player"]]
+[sub_resource type="LabelSettings" id="LabelSettings_qrljh"]
+font = ExtResource("2_yj4gv")
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yj4gv"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_i4ban"]
+
+[node name="Player" type="CharacterBody3D" unique_id=1134371717 node_paths=PackedStringArray("bar_nickname", "bar_health", "head", "camera")]
 collision_layer = 2
-script = ExtResource("1_rmstp")
-gold = null
-silver = null
-health = null
-health_max = null
-bar_nickname = NodePath("InfoBar/Health/SubViewport/Nickname_Label")
-bar_health = NodePath("InfoBar/Health/SubViewport/HealthBar")
-hud = NodePath("HUD")
+script = ExtResource("1_go6xe")
+bar_nickname = NodePath("Info/Sprite3D/SubViewport/Nick")
+bar_health = NodePath("Info/Sprite3D/SubViewport/ProgressBar")
+head = NodePath("Head")
+camera = NodePath("Head/Camera3D")
 
-[node name="InfoBar" type="Node3D" parent="."]
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1320753761]
+replication_config = SubResource("SceneReplicationConfig_i4ban")
 
-[node name="Health" type="Sprite3D" parent="InfoBar"]
+[node name="Info" type="Node3D" parent="." unique_id=2110749899]
+
+[node name="Sprite3D" type="Sprite3D" parent="Info" unique_id=1399075573]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2, 0)
-visibility_range_end = 6.0
+visibility_range_begin = 1.0
+visibility_range_end = 10.0
 billboard = 1
-texture = SubResource("ViewportTexture_xboe1")
+texture = SubResource("ViewportTexture_1f8af")
 
-[node name="SubViewport" type="SubViewport" parent="InfoBar/Health"]
+[node name="SubViewport" type="SubViewport" parent="Info/Sprite3D" unique_id=501113322]
 transparent_bg = true
-handle_input_locally = false
 size = Vector2i(256, 256)
-render_target_update_mode = 4
 
-[node name="HealthBar" type="ProgressBar" parent="InfoBar/Health/SubViewport"]
+[node name="ProgressBar" type="ProgressBar" parent="Info/Sprite3D/SubViewport" unique_id=1416979868]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -82.0
-offset_top = -10.0
-offset_right = 82.0
-offset_bottom = 10.0
+offset_left = -128.0
+offset_top = -10.5
+offset_right = 128.0
+offset_bottom = 10.5
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_fonts/font = ExtResource("2_vx763")
 theme_override_font_sizes/font_size = 12
-theme_override_styles/background = SubResource("StyleBoxFlat_y0fyv")
-theme_override_styles/fill = SubResource("StyleBoxFlat_ukqa4")
-step = 1.0
-value = 75.0
 show_percentage = false
 
-[node name="Label" type="Label" parent="InfoBar/Health/SubViewport/HealthBar"]
+[node name="Label" type="Label" parent="Info/Sprite3D/SubViewport/ProgressBar" unique_id=1159617556]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-label_settings = SubResource("LabelSettings_qrljh")
+text = "100/100"
+label_settings = SubResource("LabelSettings_xs2b6")
 horizontal_alignment = 1
 vertical_alignment = 1
-max_lines_visible = 1
 
-[node name="Nickname_Label" type="Label" parent="InfoBar/Health/SubViewport"]
-texture_filter = 5
+[node name="Nick" type="Label" parent="Info/Sprite3D/SubViewport" unique_id=2042849187]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -49.0
-offset_top = -36.0
-offset_right = 49.0
-offset_bottom = -12.0
+offset_left = -128.0
+offset_top = -33.5
+offset_right = 128.0
+offset_bottom = -10.5
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/outline_size = 2
-text = "Nickname"
+text = "Name"
 label_settings = SubResource("LabelSettings_qrljh")
 horizontal_alignment = 1
-max_lines_visible = 1
-visible_characters = 10
-visible_ratio = 1.25
 
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_go6xe")
+[node name="Control" type="Control" parent="Info/Sprite3D" unique_id=1906721317]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 256.0
+offset_bottom = 256.0
 
-[node name="Head" type="Node3D" parent="."]
+[node name="Head" type="Node3D" parent="." unique_id=1206733309]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
-[node name="Camera3D" type="Camera3D" parent="Head"]
+[node name="Camera3D" type="Camera3D" parent="Head" unique_id=421574104]
 
-[node name="Hand" type="Node3D" parent="Head/Camera3D"]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, -0.5, -0.8)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1053334981]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("CapsuleShape3D_vx1ls")
+shape = SubResource("CapsuleShape3D_yj4gv")
 
-[node name="Body" type="Node3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1154055725]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Body"]
-mesh = SubResource("CapsuleMesh_ivbhp")
-skeleton = NodePath("../..")
-
-[node name="Inventory" type="Node3D" parent="."]
-unique_name_in_owner = true
-visible = false
-
-[node name="Sword" parent="Inventory" instance=ExtResource("2_yj4gv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, 1, -0.8)
-
-[node name="HUD" parent="." instance=ExtResource("5_xs2b6")]
+mesh = SubResource("CapsuleMesh_i4ban")

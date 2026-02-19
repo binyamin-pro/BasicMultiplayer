@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://dw7ikjxmwgws1"]
+
+[ext_resource type="Script" uid="uid://cjwai3qliih7x" path="res://scripts/hud.gd" id="1_ahhtf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ahhtf"]
+bg_color = Color(0.34407586, 0.3440757, 0.34407574, 0.63529414)
+
+[node name="HUD" type="CanvasLayer" unique_id=677494332 node_paths=PackedStringArray("chat_", "chat_list", "chat_edit")]
+script = ExtResource("1_ahhtf")
+chat_ = NodePath("Chat")
+chat_list = NodePath("Chat/VBoxContainer/MarginContainer/List")
+chat_edit = NodePath("Chat/VBoxContainer/Edit")
+
+[node name="Chat" type="PanelContainer" parent="." unique_id=940155135]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -270.0
+offset_right = 434.0
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ahhtf")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Chat" unique_id=2055324715]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="Chat/VBoxContainer" unique_id=2043902927]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="List" type="RichTextLabel" parent="Chat/VBoxContainer/MarginContainer" unique_id=1794550293]
+custom_minimum_size = Vector2(0, 219)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 18
+theme_override_font_sizes/bold_font_size = 18
+theme_override_font_sizes/bold_italics_font_size = 18
+theme_override_font_sizes/italics_font_size = 18
+theme_override_font_sizes/mono_font_size = 18
+bbcode_enabled = true
+scroll_following = true
+vertical_alignment = 2
+
+[node name="Edit" type="LineEdit" parent="Chat/VBoxContainer" unique_id=354070227]
+layout_mode = 2
+
+[connection signal="focus_exited" from="Chat/VBoxContainer/Edit" to="." method="_chat_exited"]
+[connection signal="text_submitted" from="Chat/VBoxContainer/Edit" to="." method="_chat_submitted"]

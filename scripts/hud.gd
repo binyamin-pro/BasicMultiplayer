@@ -1,38 +1,72 @@
 extends CanvasLayer
 
-@export_category("Pref")
-@export var health_bar: ProgressBar
-@export var label_health: Label
-@export var label_gold: Label
-@export var label_silver: Label
+@export_category("Stats")
+@export var nickname = ""
+@export var health = 0:
+	set(v):
+		health = v
+		
 
-@onready var player := $".."
-
-func _ready():
-	set_multiplayer_authority(str($"..".name).to_int())
-
-func changed(a, v):
-	if not is_multiplayer_authority(): return
-	match a:
-		1: # gold
-			label_gold.text = str(format(v))
-		2: # silver
-			label_silver.text = str(format(v))
-		3: # health
-			health_bar.value = v
-			label_health.text = str(v) + "/" + str(player.health_max)
-		4: # health_max
-			health_bar.max_value = v
-			label_health.text = str(player.health) + "/" + str(v)
+@export var health_max = 0:
+	set(v):
+		health_max = v
+		
 
 
-func format(value: float, decimals := 1) -> String:
-	if value < 1000:
-		return str(int(value))
-	var units := ["K", "M", "B", "T"]
-	var unit_index := -1
-	var num := value
-	while num >= 1000.0 and unit_index < units.size() - 1:
-		num /= 1000.0
-		unit_index += 1
-	return "%.*f%s" % [decimals, num, units[unit_index]]
+func _ready() -> void:
+	
+	chat_style_o = chat_.get_theme_stylebox("panel")
+	chat_.add_theme_stylebox_override("panel", StyleBoxEmpty.new())
+	chat_edit.visible = false
+	
+
+
+
+
+@export_category("Chat")
+var chat_style_o : StyleBox
+@export var chat_ :PanelContainer
+@export var chat_list :RichTextLabel
+@export var chat_edit :LineEdit
+
+@rpc("any_peer","call_local")
+func chat(msg):
+	chat_list.append_text(msg)
+	#chat_list.scroll_to_line(chat_list.get_line_count())
+
+func chat_local(msg):
+	chat_list.append_text(msg)
+
+
+func _chat_submitted(text: String) -> void:
+	rpc("chat", str("[color=white][%s] %s[/color]\n" % [Global_self.nickname, text]))
+	chat_edit.clear()
+	
+	chat_edit.release_focus()
+
+
+func _input(_event: InputEvent) -> void:
+	if Input.is_action_just_pressed("chat"):
+		chat_edit.grab_focus()
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		get_viewport().set_input_as_handled()
+		
+		Global_self.input_blocked = true
+		chat_.add_theme_stylebox_override("panel", chat_style_o)
+		chat_edit.visible = true
+	
+	if Input.is_action_just_pressed("pause"):
+		if chat_edit.has_focus(): chat_edit.release_focus()
+		
+		else: #pause menu
+			Input.set_mouse_mode(
+				Input.MOUSE_MODE_VISIBLE if Input.get_mouse_mode() != Input.MOUSE_MODE_VISIBLE else Input.MOUSE_MODE_HIDDEN
+				)
+	
+
+func _chat_exited() -> void:
+	Global_self.input_blocked = false
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
+	chat_.add_theme_stylebox_override("panel", StyleBoxEmpty.new())
+	chat_edit.visible = false
